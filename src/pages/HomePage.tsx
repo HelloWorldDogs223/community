@@ -42,11 +42,12 @@ const EMPTY_ARR = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 111, 1, 1, 1, 1];
 export default function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const doneVal = location.state || false;
 
   const [menu, setMenu] = useState("커뮤니티 둘러보기");
   const [tag, setTag] = useState("전체");
   const [modal, setModal] = useState(false);
-  const [done, setDone] = useState(location.state || {});
+  const [done, setDone] = useState(doneVal);
 
   const createMenuClickHandler = (
     givenMenu: string
