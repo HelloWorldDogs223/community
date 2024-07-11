@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import TagModal from "../components/TagModal";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import HeaderFix from "../components/HeaderFix";
 
 const MENU_NAME = [
   "커뮤니티 둘러보기",
@@ -67,8 +68,8 @@ export default function HomePage() {
 
   return (
     <div>
-      <Header />
-      <div className="flex h-screen min-h-[500px]">
+      <HeaderFix />
+      <div className="flex h-screen pt-[64px]">
         <div className="pl-[40px] pt-[48px] border-r  border-solid border-gray-200 pr-[63px] min-w-[240px] fixed h-screen">
           {MENU_NAME.map((el, idx) => {
             return (
@@ -86,44 +87,49 @@ export default function HomePage() {
             );
           })}
         </div>
-        <div className="ml-[240px] pt-[64px] sticky top-0">
-          <div className="pl-[64px]">
-            <p className="font-semibold text-[28px] mb-[12px]">
-              Explore Community for{" "}
-              <span className="text-red-500">Win-Win!</span>
-            </p>
-            <p className="text-gray-300 mb-[56px]">
-              협업할 커뮤니티를 쉽고 빠르게 찾아 보세요!
-            </p>
-          </div>
-          <div className="flex items-center mb-[91px] pl-[64px]">
-            <svg
-              className="mr-[9px]"
-              xmlns="http://www.w3.org/2000/svg"
-              width="4"
-              height="4"
-              viewBox="0 0 4 4"
-              fill="none"
-            >
-              <circle cx="2" cy="2" r="2" fill="#FF5A5F" />
-            </svg>
-            <div className="mr-[24px] ">
-              <p className="font-semibold text-[16px]">카테고리</p>
+        <div className="ml-[240px]">
+          <div className=" pt-[64px] sticky top-[0px]  z-[2] bg-white">
+            <div>
+              <div className=" pl-[64px]  ">
+                <p className="font-semibold text-[28px] mb-[12px]">
+                  Explore Community for
+                  <span className="text-red-500"> Win-Win!</span>
+                </p>
+                <p className="text-gray-300 mb-[56px]">
+                  협업할 커뮤니티를 쉽고 빠르게 찾아 보세요!
+                </p>
+              </div>
+              <div className="flex items-center pb-[91px] pl-[64px]">
+                <svg
+                  className="mr-[9px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="4"
+                  height="4"
+                  viewBox="0 0 4 4"
+                  fill="none"
+                >
+                  <circle cx="2" cy="2" r="2" fill="#FF5A5F" />
+                </svg>
+                <div className="mr-[24px] ">
+                  <p className="font-semibold text-[16px]">카테고리</p>
+                </div>
+                <div className="flex">
+                  {TAG_NAME.map((el, idx) => {
+                    return (
+                      <div
+                        onClick={createTagClickHandler(el)}
+                        key={idx}
+                        className={`cursor-pointer px-[24px] py-[10px] mr-[12px]  rounded-full  ${el === tag ? "bg-red-500 text-white" : "bg-white border border-solid border-gray-200"}`}
+                      >
+                        <p>{el}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-            <div className="flex">
-              {TAG_NAME.map((el, idx) => {
-                return (
-                  <div
-                    onClick={createTagClickHandler(el)}
-                    key={idx}
-                    className={`cursor-pointer px-[24px] py-[10px] mr-[12px]  rounded-full  ${el === tag ? "bg-red-500 text-white" : "bg-white border border-solid border-gray-200"}`}
-                  >
-                    <p>{el}</p>
-                  </div>
-                );
-              })}
-            </div>
           </div>
+
           <div className="flex flex-wrap mr-[115px] ml-[24px]">
             {EMPTY_ARR.map((el, idx) => {
               return (

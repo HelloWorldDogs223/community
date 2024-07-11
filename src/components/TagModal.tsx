@@ -49,7 +49,7 @@ export default function TagModal({ setModal }: Props) {
   return (
     <div
       onClick={outClickHandler}
-      className="fixed top-0 left-0 bg-black w-screen h-screen bg-opacity-[50%]"
+      className="fixed top-0 left-0 bg-black w-screen h-screen bg-opacity-[50%] z-[99]"
     >
       <div
         onClick={inClickHandler}
