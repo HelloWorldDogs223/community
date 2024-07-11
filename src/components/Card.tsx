@@ -1,7 +1,7 @@
 export default function Card() {
   return (
-    <div className="mr-[24px] mb-[48px]">
-      <div className="bg-gray-600 w-[320px] h-[140px] flex justify-center items-center text-white rounded-[8px] mb-[14px]">
+    <div className=" mb-[48px] bg-neutral-50 hover:shadow rounded-xl p-[15px] ">
+      <div className="bg-gray-600 w-[310px] h-[140px] flex justify-center items-center text-white rounded-[8px] mb-[14px]">
         예시 이미지
       </div>
       <div className="mb-[8px]">한 줄 소개글을 작성해주세요</div>

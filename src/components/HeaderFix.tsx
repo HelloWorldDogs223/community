@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function HeaderFix() {
   const navigate = useNavigate();
   return (
-    <div className="absolute z-[1] top-0 left-0 w-full">
+    <div className="absolute z-[2] top-0 left-0 w-full bg-white">
       <div className="flex justify-between pl-[40px] py-[16px] pr-[64px] text-xl border-b border-gray-200 border-solid font-bold">
         <div
           className="flex items-center cursor-pointer"
