@@ -1,12 +1,23 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
 export default function SuggestPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleThird, setIsVisibleThird] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
   const [profit, setProfit] = useState("영리");
   const [adText, setAdText] = useState("");
   const [profitText, setProfitText] = useState("");
+  const [money, setMoney] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [intro, setIntro] = useState("");
+
+  const [all, setAll] = useState(false);
+
+  const navigate = useNavigate();
 
   const targetRef = useRef(null);
   const targetRef2 = useRef(null);
@@ -26,6 +37,89 @@ export default function SuggestPage() {
   const profitTextHandler = (e: any) => {
     setProfitText(e.target.value);
   };
+
+  const nameHandler = (e: any) => {
+    setName(e.target.value);
+  };
+  const phoneTextHandler = (e: any) => {
+    setPhone(e.target.value);
+  };
+  const introTextHandler = (e: any) => {
+    setIntro(e.target.value);
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = (e: any) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setIsFocused(false);
+    }
+  };
+
+  const formatNumber = (num: any) => {
+    if (!num) return "";
+    const parts = num.toString().split(",");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  };
+
+  const moneyHandler = (e: any) => {
+    const inputValue = e.target.value.replace(/,/g, "").replace("원", "");
+    // 숫자만 입력 가능하도록 필터링
+    if (/^\d*$/.test(inputValue)) {
+      setMoney(formatNumber(inputValue));
+    }
+  };
+
+  const preventBlur = (e: any) => {
+    e.preventDefault();
+  };
+
+  const increaseNumber = () => {
+    const numericValue = parseInt(money.replace(/,/g, ""), 10) || 0;
+    const newValue = numericValue + 100000;
+    setMoney(formatNumber(newValue.toString()));
+  };
+
+  const decreaseNumber = () => {
+    const numericValue = parseInt(money.replace(/,/g, ""), 10) || 0;
+    if (numericValue >= 100000) {
+      const newValue = numericValue - 100000;
+      setMoney(formatNumber(newValue.toString()));
+    }
+  };
+
+  const submitHandler = () => {
+    if (
+      money.length > 0 &&
+      adText.length > 0 &&
+      profitText.length &&
+      name.length > 0 &&
+      phone.length > 0 &&
+      intro.length > 0
+    ) {
+      navigate("/", {
+        state: { done: true },
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (
+      money.length > 0 &&
+      adText.length > 0 &&
+      profitText.length &&
+      name.length > 0 &&
+      phone.length > 0 &&
+      intro.length > 0
+    ) {
+      setAll(true);
+    } else {
+      setAll(false);
+    }
+  }, [money, adText, profitText, name, phone, intro]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -93,8 +187,12 @@ export default function SuggestPage() {
         <div className=" flex mt-[66px]  justify-center w-full relative ml-[60px]">
           <div className=" flex flex-col  sticky top-[250px]  h-full">
             <div className="flex mb-[18px]">
-              <div className="w-5 h-5 px-[5.67px] py-[3.20px] bg-zinc-800 rounded-[19.22px] justify-center items-center gap-[5.67px] inline-flex mr-[8px]">
-                <div className="text-neutral-100 text-[9.61px] font-bold font-['Inter']">
+              <div
+                className={`w-5 h-5 px-[5.67px] py-[3.20px] ${isVisible || isVisibleThird ? "bg-stone-300" : "bg-zinc-800"} rounded-[19.22px] justify-center items-center gap-[5.67px] inline-flex mr-[8px]`}
+              >
+                <div
+                  className={`text-neutral-100 text-[9.61px] font-bold font-['Inter'] `}
+                >
                   1
                 </div>
               </div>
@@ -105,8 +203,12 @@ export default function SuggestPage() {
               </div>
             </div>
             <div className={`justify-center flex mb-[18px] `}>
-              <div className="w-5 h-5 px-[5.67px] py-[3.20px] bg-stone-300 rounded-[19.22px] justify-center items-center gap-[5.67px] inline-flex mr-[8px]">
-                <div className="text-[9.61px] font-bold font-['Inter']">2</div>
+              <div
+                className={`w-5 h-5 px-[5.67px] py-[3.20px] ${isVisible && !isVisibleThird ? "bg-zinc-800" : "bg-stone-300"}  rounded-[19.22px] justify-center items-center gap-[5.67px] inline-flex mr-[8px]`}
+              >
+                <div className="text-neutral-100 text-[9.61px] font-bold font-['Inter']">
+                  2
+                </div>
               </div>
               <div
                 className={`text-[15px] font-semibold font-['Inter'] leading-tight" ${isVisible && !isVisibleThird ? "text-zinc-800" : "text-stone-300"}`}
@@ -116,7 +218,9 @@ export default function SuggestPage() {
             </div>
 
             <div className=" justify-center flex">
-              <div className="w-5 h-5 px-[5.67px] py-[3.20px] bg-stone-300 rounded-[19.22px] justify-center items-center gap-[5.67px] inline-flex mr-[8px]">
+              <div
+                className={`w-5 h-5 px-[5.67px] py-[3.20px] bg-stone-300 rounded-[19.22px] justify-center items-center gap-[5.67px] inline-flex mr-[8px] ${isVisibleThird ? "bg-zinc-800" : "bg-stone-300"}`}
+              >
                 <div className="text-neutral-100 text-[9.61px] font-bold font-['Inter']">
                   3
                 </div>
@@ -142,6 +246,7 @@ export default function SuggestPage() {
               </span>
             </div>
             <input
+              onChange={nameHandler}
               className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px]"
               placeholder="소속 업체의 이름을 알려 주세요"
             />
@@ -154,6 +259,7 @@ export default function SuggestPage() {
               </span>
             </div>
             <input
+              onChange={phoneTextHandler}
               className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  py-[18px] pl-[25px]"
               placeholder="전화번호를 입력해주세요 (숫자만)"
             />
@@ -232,6 +338,7 @@ export default function SuggestPage() {
               </span>
             </div>
             <input
+              onChange={introTextHandler}
               className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px]"
               placeholder="소속 업체를 한줄로 간략히 소개해 주세요 "
             />
@@ -292,20 +399,85 @@ ex) -------"
                 </span>
               </div>
 
-              <input
-                type="number"
-                className="w-[477px] h-12 relative rounded border border-stone-300 border-solid ml-[64px] pl-[24px] pt-[5px]"
-                placeholder="제안 단가"
-                min={0}
-                step={100000}
-              />
+              <div
+                className="relative"
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+              >
+                <input
+                  value={money}
+                  onChange={moneyHandler}
+                  className="w-[477px] h-12 relative rounded border border-stone-300 border-solid ml-[64px] pl-[24px] pt-[5px] pr-[10px]"
+                  placeholder="제안 단가"
+                  min={0}
+                  step={100000}
+                  maxLength={50}
+                />
+                <p className="absolute right-[35px] top-[16px]">원</p>
+                {isFocused && (
+                  <>
+                    <svg
+                      onMouseDown={preventBlur}
+                      onClick={increaseNumber}
+                      className="cursor-pointer absolute top-[0px] right-[0px]"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.5"
+                        y="-0.5"
+                        width="25"
+                        height="25"
+                        fill="#EEEEEE"
+                      />
+                      <rect
+                        x="0.5"
+                        y="-0.5"
+                        width="25"
+                        height="25"
+                        stroke="#CCCCCC"
+                      />
+                      <path d="M8 14L13 9L18 14H8Z" fill="black" />
+                    </svg>
+                    <svg
+                      onMouseDown={preventBlur}
+                      onClick={decreaseNumber}
+                      className="cursor-pointer absolute top-[21px] right-0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="26"
+                      viewBox="0 0 25 26"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.5"
+                        y="0.5"
+                        width="25"
+                        height="25"
+                        fill="#EEEEEE"
+                      />
+                      <rect
+                        x="0.5"
+                        y="0.5"
+                        width="25"
+                        height="25"
+                        stroke="#CCCCCC"
+                      />
+                      <path d="M8 11L13 16L18 11H8Z" fill="black" />
+                    </svg>
+                  </>
+                )}
+              </div>
             </div>
 
             <div className="text-zinc-800 text-xl font-semibold font-['Inter'] leading-7">
               3) 커뮤니티에 제공할 혜택
             </div>
 
-            <div className="flex mt-[56px] items-center">
+            <div className="flex mt-[56px] items-center justify-between">
               <div className="">
                 <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug">
                   혜택 내용
@@ -315,22 +487,25 @@ ex) -------"
                 </span>
               </div>
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <rect width="16" height="16" rx="8" fill="#FF5A5F" />
-                <path
-                  d="M8.89347 3.77273L8.72727 9.88352H7.16761L6.99716 3.77273H8.89347ZM7.94744 12.6108C7.66619 12.6108 7.42472 12.5114 7.22301 12.3125C7.02131 12.1108 6.92188 11.8693 6.92472 11.5881C6.92188 11.3097 7.02131 11.071 7.22301 10.8722C7.42472 10.6733 7.66619 10.5739 7.94744 10.5739C8.21733 10.5739 8.45455 10.6733 8.65909 10.8722C8.86364 11.071 8.96733 11.3097 8.97017 11.5881C8.96733 11.7756 8.91761 11.9474 8.82102 12.1037C8.72727 12.2571 8.60369 12.3807 8.45028 12.4744C8.29688 12.5653 8.12926 12.6108 7.94744 12.6108Z"
-                  fill="#F6F6F6"
-                />
-              </svg>
+              <div className="flex">
+                <svg
+                  className="mr-[8px]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <rect width="16" height="16" rx="8" fill="#FF5A5F" />
+                  <path
+                    d="M8.89347 3.77273L8.72727 9.88352H7.16761L6.99716 3.77273H8.89347ZM7.94744 12.6108C7.66619 12.6108 7.42472 12.5114 7.22301 12.3125C7.02131 12.1108 6.92188 11.8693 6.92472 11.5881C6.92188 11.3097 7.02131 11.071 7.22301 10.8722C7.42472 10.6733 7.66619 10.5739 7.94744 10.5739C8.21733 10.5739 8.45455 10.6733 8.65909 10.8722C8.86364 11.071 8.96733 11.3097 8.97017 11.5881C8.96733 11.7756 8.91761 11.9474 8.82102 12.1037C8.72727 12.2571 8.60369 12.3807 8.45028 12.4744C8.29688 12.5653 8.12926 12.6108 7.94744 12.6108Z"
+                    fill="#F6F6F6"
+                  />
+                </svg>
 
-              <div className="text-right text-stone-500 text-[13px] font-normal font-['Inter'] ">
-                커뮤니티 멤버들에게 매력적인 혜택을 알려주세요!
+                <div className="text-right text-stone-500 text-[13px] font-normal font-['Inter'] ">
+                  커뮤니티 멤버들에게 매력적인 혜택을 알려주세요!
+                </div>
               </div>
             </div>
 
@@ -348,12 +523,18 @@ ex) -------"
             </div>
 
             <div className="flex mt-[58px] " ref={targetRef2}>
-              <div className="w-[302.50px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[12px]">
+              <div
+                onClick={() => navigate("/")}
+                className="cursor-pointer w-[302.50px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[12px]"
+              >
                 <div className="text-center text-stone-500 text-sm font-semibold font-['Inter'] leading-tight tracking-tight">
                   홈으로
                 </div>
               </div>
-              <div className="w-[302.50px] h-12 px-6 py-2.5 bg-stone-300 rounded-xl flex-col justify-center items-center gap-2 inline-flex">
+              <div
+                onClick={submitHandler}
+                className={`cursor-pointer w-[302.50px] h-12 px-6 py-2.5 ${all ? "bg-rose-500" : "bg-stone-300"} rounded-xl flex-col justify-center items-center gap-2 inline-flex`}
+              >
                 <div className="text-center text-neutral-50 text-sm font-semibold font-['Inter'] leading-tight tracking-tight">
                   제출하기
                 </div>

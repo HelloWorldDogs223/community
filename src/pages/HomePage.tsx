@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import TagModal from "../components/TagModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import HeaderFix from "../components/HeaderFix";
 
@@ -40,10 +40,13 @@ const styleObject = {
 const EMPTY_ARR = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 111, 1, 1, 1, 1];
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [menu, setMenu] = useState("커뮤니티 둘러보기");
   const [tag, setTag] = useState("전체");
   const [modal, setModal] = useState(false);
-  const navigate = useNavigate();
+  const [done, setDone] = useState(location.state || {});
 
   const createMenuClickHandler = (
     givenMenu: string
@@ -71,6 +74,24 @@ export default function HomePage() {
   const goToDetailPage = () => {
     navigate("/detail/1");
   };
+
+  useEffect(() => {
+    // 약간의 지연 후에 window.scrollTo를 호출
+    const scrollTimeout = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50); // 50 밀리초 지연
+
+    // 2초 후 done 상태를 false로 변경
+    const hideTimeout = setTimeout(() => {
+      setDone(false);
+    }, 2000);
+
+    // 컴포넌트 언마운트 시 타이머 정리
+    return () => {
+      clearTimeout(scrollTimeout);
+      clearTimeout(hideTimeout);
+    };
+  }, []);
 
   return (
     <div>
@@ -187,6 +208,25 @@ export default function HomePage() {
         </div>
       </div>
       {modal ? <TagModal setModal={setModal} /> : <></>}
+      {done ? (
+        <div className="w-full absolute top-[0] left-[0] flex justify-center">
+          <div className="w-[1054px] h-14 fixed top-[100px] z-[103] bg-zinc-800 rounded-lg">
+            <div className="left-[24px] top-[10px] absolute justify-start items-center gap-1 inline-flex">
+              <div className="px-[4.57px] py-[5.71px] rounded-2xl border border-neutral-100 justify-center items-center gap-[4.57px] flex" />
+              <div className="p-2 justify-center items-center gap-2.5 flex">
+                <div className="text-neutral-100 text-base font-bold font-['Inter']">
+                  윌펫 (반려동물 지식 커뮤니티)
+                </div>
+              </div>
+              <div className="text-neutral-100 text-sm font-normal font-['Inter']">
+                에 제안서를 성공적으로 제출했습니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
