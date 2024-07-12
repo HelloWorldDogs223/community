@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Header from "../components/Header";
 
 export default function SuggestPage() {
@@ -14,11 +15,9 @@ export default function SuggestPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [intro, setIntro] = useState("");
-
   const [all, setAll] = useState(false);
 
   const navigate = useNavigate();
-
   const targetRef = useRef(null);
   const targetRef2 = useRef(null);
 

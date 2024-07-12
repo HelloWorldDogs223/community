@@ -1,11 +1,22 @@
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import Header from "../components/Header";
+import { useEffect } from "react";
 
 export default function DetailPage() {
   const { uid } = useParams();
   const navigate = useNavigate();
 
-  console.log(uid);
+  useEffect(() => {
+    const getAxios = async () => {
+      const res = await axios.get(
+        `https://sponsors.duckdns.org/api/v1/communities/${uid}`
+      );
+      console.log(res.data);
+    };
+    getAxios();
+  }, []);
 
   return (
     <>

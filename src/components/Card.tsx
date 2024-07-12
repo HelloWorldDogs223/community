@@ -1,11 +1,37 @@
-export default function Card() {
+interface CommunityCategory {
+  name: string;
+}
+
+interface Props {
+  id: string;
+  name: string;
+  description: string;
+  userCount: number;
+  communityCategory: CommunityCategory[];
+}
+
+export default function Card({
+  id,
+  name,
+  description,
+  userCount,
+  communityCategory,
+}: Props) {
   return (
     <div className=" mb-[48px] bg-neutral-50 hover:shadow rounded-xl p-[15px] ">
       <div className="bg-gray-600 w-[310px] h-[140px] flex justify-center items-center text-white rounded-[8px] mb-[14px]">
         예시 이미지
       </div>
-      <div className="mb-[8px]">한 줄 소개글을 작성해주세요</div>
-      <div className="mb-[18px]">뷰티 인스타그램</div>
+      <div className="mb-[8px]">{description}</div>
+      <div className="mb-[18px]">
+        {communityCategory.map((el, idx): any => {
+          return (
+            <span key={idx} className="mr-[4px]">
+              {el.name}
+            </span>
+          );
+        })}
+      </div>
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +59,7 @@ export default function Card() {
           />
         </svg>
         <span>회원수</span>
-        <span>1.6K~2K</span>
+        <span>{userCount}</span>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+
+import HeaderFix from "../components/HeaderFix";
 import Card from "../components/Card";
 import TagModal from "../components/TagModal";
-import { useNavigate, useLocation } from "react-router-dom";
-import Header from "../components/Header";
-import HeaderFix from "../components/HeaderFix";
 
 const MENU_NAME = [
   { text: "커뮤니티 둘러보기", color: "text-gray-300", font: "font-normal" },
@@ -48,23 +49,36 @@ export default function HomePage() {
   const [tag, setTag] = useState("전체");
   const [modal, setModal] = useState(false);
   const [done, setDone] = useState(doneVal);
+  const [result, setResult] = useState([]);
 
   const createMenuClickHandler = (
     givenMenu: string
   ): React.MouseEventHandler<HTMLParagraphElement> => {
     return (e) => {
       // 이벤트 핸들러 내부에서 givenMenu를 사용할 수 있습니다.
-      if (givenMenu === "캠페인 관리") {
-        return;
-      }
       setMenu(givenMenu);
     };
+  };
+
+  const tagGetAxios = async (tag: string) => {
+    let givenTag = tag;
+    if (tag === "IT/가전") {
+      givenTag = "IT,가전&platform";
+    } else if (tag === "전체") {
+      givenTag = "";
+    }
+    const res: any = await axios.get(
+      `https://sponsors.duckdns.org/api/v1/communities?category=${givenTag}`
+    );
+    setResult(res.data);
   };
 
   const createTagClickHandler = (
     givenTag: string
   ): React.MouseEventHandler<HTMLParagraphElement> => {
     return (e) => {
+      tagGetAxios(givenTag);
+
       if (givenTag === "더보기...") {
         setModal(true);
       }
@@ -72,22 +86,28 @@ export default function HomePage() {
     };
   };
 
-  const goToDetailPage = () => {
-    navigate("/detail/1");
-  };
-
   useEffect(() => {
-    // 약간의 지연 후에 window.scrollTo를 호출
     const scrollTimeout = setTimeout(() => {
       window.scrollTo(0, 0);
-    }, 50); // 50 밀리초 지연
+    }, 50);
 
-    // 2초 후 done 상태를 false로 변경
     const hideTimeout = setTimeout(() => {
       setDone(false);
     }, 2000);
 
-    // 컴포넌트 언마운트 시 타이머 정리
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "https://sponsors.duckdns.org/api/v1/communities"
+        );
+        setResult(res.data);
+      } catch (e) {
+        console.error("Error fetching data:", e);
+      }
+    };
+
+    fetchData();
+
     return () => {
       clearTimeout(scrollTimeout);
       clearTimeout(hideTimeout);
@@ -95,9 +115,9 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div>
+    <div className="h-screen">
       <HeaderFix />
-      <div className="flex h-screen ">
+      <div className="flex h-screen">
         <div className="pl-[40px] pt-[98px] border-r  border-solid border-gray-200 pr-[63px] min-w-[240px] fixed z-[1] h-screen">
           {MENU_NAME.map((el: any, idx) => {
             return (
@@ -149,10 +169,10 @@ export default function HomePage() {
             );
           })}
         </div>
-        <div className="ml-[252px]">
-          <div className=" mt-[100px] pt-[10px] sticky top-[0px]  z-[2] bg-white">
+        <div className="ml-[252px] min-h-screen relative mt-[80px]">
+          <div className="z-[1] sticky pt-[80px] top-0 bg-white">
             <div>
-              <div className=" pl-[64px]  ">
+              <div className=" pl-[64px]">
                 <p className="font-semibold text-[28px] mb-[12px]">
                   Explore Community for
                   <span className="text-red-500"> Win-Win!</span>
@@ -161,7 +181,7 @@ export default function HomePage() {
                   협업할 커뮤니티를 쉽고 빠르게 찾아 보세요!
                 </p>
               </div>
-              <div className="flex items-center pb-[91px] pl-[64px]">
+              <div className="flex items-center pb-[20px] pl-[64px]">
                 <svg
                   className="mr-[9px]"
                   xmlns="http://www.w3.org/2000/svg"
@@ -193,15 +213,21 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-wrap mr-[115px] ml-[24px]">
-            {EMPTY_ARR.map((el, idx) => {
+            {result.map((el: any) => {
               return (
                 <div
-                  onClick={goToDetailPage}
-                  key={idx}
+                  onClick={() => navigate(`/detail/${el.id}`)}
+                  key={el.id}
                   style={styleObject}
                   className="flex items-center justify-center max-w-[340px] hover:translate-y-[-5px] custom-drop-shadow-hover "
                 >
-                  <Card />
+                  <Card
+                    id={el.id}
+                    name={el.name}
+                    description={el.description}
+                    communityCategory={el.communityCategory}
+                    userCount={el.userCount}
+                  />
                 </div>
               );
             })}
