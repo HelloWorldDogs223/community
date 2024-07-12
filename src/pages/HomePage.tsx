@@ -38,8 +38,6 @@ const styleObject = {
   marginRight: "24px",
 };
 
-const EMPTY_ARR = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 111, 1, 1, 1, 1];
-
 export default function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -156,7 +154,7 @@ export default function HomePage() {
                 <p
                   onClick={createMenuClickHandler(el.text)}
                   key={idx}
-                  className={`w-full max-w-fit mb-[32px] cursor-pointer text-[18px] ${el.color} ${el.font}
+                  className={`w-full max-w-fit mb-[32px] cursor-pointer text-[18px] ${el.color} ${el.font} hover:text-black/80
                     ${
                       el.text === menu
                         ? "!font-bold !text-black  pb-[8px] border-b-2 border-solid border-black"
@@ -201,7 +199,7 @@ export default function HomePage() {
                       <div
                         onClick={createTagClickHandler(el)}
                         key={idx}
-                        className={`cursor-pointer px-[24px] py-[10px] mr-[12px]  rounded-full  ${el === tag ? "bg-red-500 text-white" : "bg-white border border-solid border-gray-200"}`}
+                        className={`cursor-pointer px-[24px] py-[10px] mr-[12px]  rounded-full  hover:bg-gray-100 ${el === tag ? "bg-red-500 text-white" : "bg-white border border-solid border-gray-200"}`}
                       >
                         <p>{el}</p>
                       </div>
