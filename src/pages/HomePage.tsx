@@ -242,7 +242,7 @@ export default function HomePage() {
           })}
         </div>
         <div className="ml-[247px] min-h-screen relative pt-[80px] ]">
-          <div className="z-[3] sticky pt-[20px] top-[63px] ">
+          <div className="z-[1] sticky pt-[20px] top-[63px] bg-neutral-100">
             <div>
               <div className=" pl-[64px]">
                 <p className="font-semibold text-[28px] mb-[12px]">
