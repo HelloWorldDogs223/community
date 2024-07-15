@@ -7,14 +7,52 @@ import Card from "../components/Card";
 import TagModal from "../components/TagModal";
 
 const MENU_NAME = [
-  { text: "커뮤니티 둘러보기", color: "text-black", font: "font-normal" },
-  { text: "캠페인 관리", color: "text-black", font: "font-normal" },
-  { text: "내가 의뢰한 캠페인", color: "text-gray-300", font: "font-normal" },
-  { text: "의뢰 받은 캠페인", color: "text-gray-300", font: "font-normal" },
-  { text: "이용방법", color: "text-gray-300", font: "font-normal" },
-  { text: "정산관리", color: "text-gray-300", font: "font-normal" },
-  { text: "계정관리", color: "text-gray-300", font: "font-normal" },
-  { text: "공지사항", color: "text-gray-300", font: "font-normal" },
+  {
+    text: "커뮤니티 둘러보기",
+    color: "text-stone-500",
+    font: "font-normal",
+    margin: "mb-[29px]",
+  },
+  {
+    text: "캠페인 관리",
+    color: "text-stone-500",
+    font: "font-normal",
+    margin: "mb-[16px]",
+  },
+  {
+    text: "내가 의뢰한 캠페인",
+    color: "text-stone-500",
+    font: "font-normal",
+    margin: "mb-[6px]",
+  },
+  {
+    text: "의뢰 받은 캠페인",
+    color: "text-stone-500",
+    font: "font-normal",
+    margin: "mb-[24px]",
+  },
+  {
+    text: "이용방법",
+    color: "text-gray-300",
+    font: "font-normal",
+    none: true,
+    margin: "mb-[32px]",
+  },
+  {
+    text: "정산관리",
+    color: "text-gray-300",
+    font: "font-normal",
+    none: true,
+    margin: "mb-[32px]",
+  },
+  {
+    text: "계정관리",
+    color: "text-gray-300",
+    font: "font-normal",
+    none: true,
+    margin: "mb-[32px]",
+  },
+  { text: "공지사항", color: "text-gray-300", font: "font-normal", none: true },
 ];
 
 const TAG_NAME: string[] = [
@@ -50,11 +88,14 @@ export default function HomePage() {
   const [result, setResult] = useState<string[]>([]);
 
   const createMenuClickHandler = (
-    givenMenu: string
+    givenMenu: any
   ): React.MouseEventHandler<HTMLParagraphElement> => {
     return (e) => {
+      if (givenMenu.none) {
+        return;
+      }
       // 이벤트 핸들러 내부에서 givenMenu를 사용할 수 있습니다.
-      setMenu(givenMenu);
+      setMenu(givenMenu.text);
     };
   };
 
@@ -140,15 +181,15 @@ export default function HomePage() {
   }, [tags]);
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen  bg-[#F6F6F6] flex flex-col">
       <HeaderFix />
       <div className="flex h-screen">
-        <div className="pl-[40px] pt-[98px] border-r  border-solid border-gray-200 pr-[63px] min-w-[240px] fixed z-[1] h-screen">
+        <div className="pl-[40px] pt-[98px] border-r border-solid border-gray-200 pr-[63px] min-w-[240px] fixed z-[1] h-screen bg-white">
           {MENU_NAME.map((el: any, idx) => {
             return (
               <div
                 key={idx}
-                className={`${el.text === "내가 의뢰한 캠페인" || el.text === "의뢰 받은 캠페인" ? "flex" : ""}`}
+                className={`${el.text === "내가 의뢰한 캠페인" || el.text === "의뢰 받은 캠페인" ? "flex items-center" : ""} ${el.margin}`}
               >
                 {el.text === "내가 의뢰한 캠페인" ||
                 el.text === "의뢰 받은 캠페인" ? (
@@ -179,14 +220,20 @@ export default function HomePage() {
                   <></>
                 )}
                 <p
-                  onClick={createMenuClickHandler(el.text)}
+                  onClick={createMenuClickHandler(el)}
                   key={idx}
-                  className={`w-full max-w-fit mb-[32px] cursor-pointer text-[18px] ${el.color} ${el.font} hover:text-black/80
-                    ${
-                      el.text === menu
-                        ? "!font-bold !text-black  pb-[8px] border-b-2 border-solid border-black"
-                        : ""
-                    }  ${el.text === "내가 의뢰한 캠페인" || el.text === "의뢰 받은 캠페인" ? "!text-sm" : "!text-xl"} `}
+                  className={`w-full max-w-fit text-[18px] ${el.color} ${el.font} ${el.none ? "" : "hover:text-black/80 hover:font-bold cursor-pointer"}
+                 ${
+                   el.text === menu
+                     ? "!font-bold !text-black border-b-2 border-solid border-black"
+                     : "border-b-2 border-transparent"
+                 }
+              ${
+                el.text === "내가 의뢰한 캠페인" ||
+                el.text === "의뢰 받은 캠페인"
+                  ? "!text-sm h-[24px]" // 텍스트 크기에 맞춘 높이 설정
+                  : "!text-xl h-[28px]" // 텍스트 크기에 맞춘 높이 설정
+              } pb-[2px]`} // 추가된 부분
                 >
                   {el.text}
                 </p>
@@ -194,8 +241,8 @@ export default function HomePage() {
             );
           })}
         </div>
-        <div className="ml-[252px] min-h-screen relative mt-[80px]">
-          <div className="z-[1] sticky pt-[80px] top-0 bg-white">
+        <div className="ml-[247px] min-h-screen relative pt-[80px] ]">
+          <div className="z-[3] sticky pt-[20px] top-[63px] ">
             <div>
               <div className=" pl-[64px]">
                 <p className="font-semibold text-[28px] mb-[12px]">
@@ -226,7 +273,7 @@ export default function HomePage() {
                       <div
                         onClick={createTagClickHandler(el)}
                         key={idx}
-                        className={`cursor-pointer px-[24px] py-[10px] mr-[12px]  rounded-full   ${tags.includes(el) ? "bg-red-500 text-white" : "bg-white hover:bg-gray-100 border border-solid border-gray-200"}`}
+                        className={`border border-solid  cursor-pointer px-[24px] py-[10px] mr-[12px] rounded-full ${tags.includes(el) ? "bg-red-500 text-white border-transparent" : "bg-white hover:bg-gray-100 border border-solid border-gray-200"}`}
                       >
                         <p>{el}</p>
                       </div>
@@ -237,7 +284,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex flex-wrap mr-[115px] ml-[24px]">
+          <div className="flex flex-wrap  pl-[14px] bg-[#F6F6F6]">
             {result.map((el: any) => {
               return (
                 <div
@@ -260,7 +307,12 @@ export default function HomePage() {
         </div>
       </div>
       {modal ? (
-        <TagModal tags={tags} setModal={setModal} setResult={setResult} />
+        <TagModal
+          tags={tags}
+          setModal={setModal}
+          setTags={setTags}
+          setResult={setResult}
+        />
       ) : (
         <></>
       )}

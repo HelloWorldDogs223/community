@@ -18,15 +18,17 @@ export default function Card({
   communityCategory,
 }: Props) {
   return (
-    <div className=" mb-[48px] bg-neutral-50 hover:shadow rounded-xl p-[15px] ">
+    <div className="w-[342px] mb-[48px] bg-neutral-50 hover:shadow rounded-xl p-[16px] ">
       <div className="bg-gray-600 w-[310px] h-[140px] flex justify-center items-center text-white rounded-[8px] mb-[14px]">
         예시 이미지
       </div>
-      <div className="mb-[8px]">{description}</div>
+      <div className="mb-[8px] font-bold">
+        <span>{description}</span>
+      </div>
       <div className="mb-[18px]">
         {communityCategory.map((el, idx): any => {
           return (
-            <span key={idx} className="mr-[4px]">
+            <span key={idx} className="mr-[4px] text-[#FF5A5F] text-[12px]">
               {el.name}
             </span>
           );
@@ -58,8 +60,7 @@ export default function Card({
             fill="#666666"
           />
         </svg>
-        <span>회원수</span>
-        <span>{userCount}</span>
+        <span className="ml-[6px]">{userCount.toLocaleString("ko-kr")}</span>
       </div>
     </div>
   );

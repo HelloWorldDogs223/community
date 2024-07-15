@@ -9,34 +9,7 @@ export default function Header() {
           className="flex items-center cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <svg
-            className="mr-[4px] "
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-          >
-            <circle cx="10" cy="10" r="10" fill="#FF5A5F" />
-            <rect
-              x="12.6602"
-              y="3"
-              width="4"
-              height="10"
-              rx="2"
-              transform="rotate(50 12.6602 3)"
-              fill="#FAFAFA"
-            />
-            <rect
-              x="12.6602"
-              y="7.94971"
-              width="4"
-              height="10"
-              rx="2"
-              transform="rotate(50 12.6602 7.94971)"
-              fill="#FAFAFA"
-            />
-          </svg>
+          <img className="mr-[4px]" src="/symbol.png" width={30} height={30} />
           <p>sponsors</p>
         </div>
         {/* <div className="flex text-[14px] items-center font-normal">

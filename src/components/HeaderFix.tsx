@@ -6,37 +6,10 @@ export default function HeaderFix() {
     <div className="fixed z-[3] top-0 left-0 w-full bg-white">
       <div className="flex justify-between pl-[40px] py-[16px] pr-[64px] text-xl border-b border-gray-200 border-solid font-bold">
         <div
-          className="flex items-center cursor-pointer"
+          className="flex items-center cursor-pointer mr-[8px]"
           onClick={() => navigate("/")}
         >
-          <svg
-            className="mr-[4px] "
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-          >
-            <circle cx="10" cy="10" r="10" fill="#FF5A5F" />
-            <rect
-              x="12.6602"
-              y="3"
-              width="4"
-              height="10"
-              rx="2"
-              transform="rotate(50 12.6602 3)"
-              fill="#FAFAFA"
-            />
-            <rect
-              x="12.6602"
-              y="7.94971"
-              width="4"
-              height="10"
-              rx="2"
-              transform="rotate(50 12.6602 7.94971)"
-              fill="#FAFAFA"
-            />
-          </svg>
+          <img src="/symbol.png" className="mr-[4px]" width={30} height={30} />
           <p>sponsors</p>
         </div>
         {/* <div className="flex text-[14px] items-center font-normal">
