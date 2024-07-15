@@ -7,8 +7,8 @@ import Card from "../components/Card";
 import TagModal from "../components/TagModal";
 
 const MENU_NAME = [
-  { text: "커뮤니티 둘러보기", color: "text-gray-300", font: "font-normal" },
-  { text: "캠페인 관리", color: "text-black", font: "font-bold" },
+  { text: "커뮤니티 둘러보기", color: "text-black", font: "font-normal" },
+  { text: "캠페인 관리", color: "text-black", font: "font-normal" },
   { text: "내가 의뢰한 캠페인", color: "text-gray-300", font: "font-normal" },
   { text: "의뢰 받은 캠페인", color: "text-gray-300", font: "font-normal" },
   { text: "이용방법", color: "text-gray-300", font: "font-normal" },
@@ -17,7 +17,7 @@ const MENU_NAME = [
   { text: "공지사항", color: "text-gray-300", font: "font-normal" },
 ];
 
-const TAG_NAME = [
+const TAG_NAME: string[] = [
   "전체",
   "뷰티",
   "패션",
@@ -44,10 +44,10 @@ export default function HomePage() {
   const doneVal = location.state || false;
 
   const [menu, setMenu] = useState("커뮤니티 둘러보기");
-  const [tag, setTag] = useState("전체");
+  const [tags, setTags] = useState<string[]>(["전체"]);
   const [modal, setModal] = useState(false);
   const [done, setDone] = useState(doneVal);
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState<string[]>([]);
 
   const createMenuClickHandler = (
     givenMenu: string
@@ -58,29 +58,28 @@ export default function HomePage() {
     };
   };
 
-  const tagGetAxios = async (tag: string) => {
-    let givenTag = tag;
-    if (tag === "IT/가전") {
-      givenTag = "IT,가전&platform";
-    } else if (tag === "전체") {
-      givenTag = "";
-    }
-    const res: any = await axios.get(
-      `https://sponsors.duckdns.org/api/v1/communities?category=${givenTag}`
-    );
-    setResult(res.data);
-  };
-
   const createTagClickHandler = (
     givenTag: string
   ): React.MouseEventHandler<HTMLParagraphElement> => {
     return (e) => {
-      tagGetAxios(givenTag);
+      if (givenTag === "전체") {
+        setTags(["전체"]);
+        return;
+      }
 
       if (givenTag === "더보기...") {
         setModal(true);
+        setTags(["더보기..."]);
+        return;
       }
-      setTag(givenTag);
+
+      let tempTags = tags.map((el) => el);
+      tempTags = tempTags.filter((el) => el !== "전체" && el !== "더보기...");
+      if (tempTags.includes(givenTag)) {
+        setTags(tempTags.filter((el) => el !== givenTag));
+      } else {
+        setTags([...tempTags, givenTag]);
+      }
     };
   };
 
@@ -111,6 +110,34 @@ export default function HomePage() {
       clearTimeout(hideTimeout);
     };
   }, []);
+
+  useEffect(() => {
+    const tagGetAxios = async () => {
+      let givenTag: string[] = tags.map((el) => el);
+
+      if (tags.includes("더보기...")) {
+        return;
+      }
+
+      if (tags.includes("IT/가전")) {
+        givenTag.push("IT,가전");
+      }
+
+      if (tags.includes("전체")) {
+        givenTag = [];
+      }
+
+      const res: any = await axios.get(
+        `https://sponsors.duckdns.org/api/v1/communities?category=${givenTag.map(
+          (el: string) => {
+            return el + ",";
+          }
+        )}`
+      );
+      setResult(res.data);
+    };
+    tagGetAxios();
+  }, [tags]);
 
   return (
     <div className="h-screen">
@@ -194,12 +221,12 @@ export default function HomePage() {
                   <p className="font-semibold text-[16px]">카테고리</p>
                 </div>
                 <div className="flex">
-                  {TAG_NAME.map((el, idx) => {
+                  {TAG_NAME.map((el: any, idx) => {
                     return (
                       <div
                         onClick={createTagClickHandler(el)}
                         key={idx}
-                        className={`cursor-pointer px-[24px] py-[10px] mr-[12px]  rounded-full  hover:bg-gray-100 ${el === tag ? "bg-red-500 text-white" : "bg-white border border-solid border-gray-200"}`}
+                        className={`cursor-pointer px-[24px] py-[10px] mr-[12px]  rounded-full   ${tags.includes(el) ? "bg-red-500 text-white" : "bg-white hover:bg-gray-100 border border-solid border-gray-200"}`}
                       >
                         <p>{el}</p>
                       </div>
@@ -232,7 +259,11 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      {modal ? <TagModal setModal={setModal} /> : <></>}
+      {modal ? (
+        <TagModal tags={tags} setModal={setModal} setResult={setResult} />
+      ) : (
+        <></>
+      )}
       {done ? (
         <div className="w-full absolute top-[0] left-[0] flex justify-center">
           <div className="w-[1054px] h-14 fixed top-[100px] z-[103] bg-zinc-800 rounded-lg">

@@ -1,10 +1,13 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface Props {
   setModal: (args: boolean) => void;
+  tags: string[];
+  setResult: any;
 }
 
-const TAG_NAME = [
+const TAG_NAME: string[] = [
   "뷰티",
   "패션",
   "푸드",
@@ -19,8 +22,8 @@ const TAG_NAME = [
   "금융",
 ];
 
-export default function TagModal({ setModal }: Props) {
-  const [tags, setTags] = useState([]);
+export default function TagModal({ setModal, tags, setResult }: Props) {
+  const [modalTags, setModalTags] = useState<string[]>([]);
 
   const outClickHandler = (e: any) => {
     setModal(false);
@@ -30,11 +33,11 @@ export default function TagModal({ setModal }: Props) {
     givenTag: string
   ): React.MouseEventHandler<HTMLParagraphElement> => {
     return (e) => {
-      if (!tags.includes(givenTag)) {
-        setTags([...tags, givenTag]);
+      if (!modalTags.includes(givenTag)) {
+        setModalTags([...modalTags, givenTag]);
       } else {
-        setTags(
-          tags.filter((el) => {
+        setModalTags(
+          modalTags.filter((el) => {
             return el !== givenTag;
           })
         );
@@ -44,6 +47,32 @@ export default function TagModal({ setModal }: Props) {
 
   const inClickHandler = (e: any) => {
     e.stopPropagation();
+  };
+
+  const tagGetAxios = async () => {
+    let givenTag: string[] = modalTags.map((el) => el);
+
+    if (modalTags.includes("IT/가전")) {
+      givenTag.push("IT,가전");
+    }
+
+    if (modalTags.includes("전체")) {
+      givenTag = [];
+    }
+
+    const res: any = await axios.get(
+      `https://sponsors.duckdns.org/api/v1/communities?category=${givenTag.map(
+        (el: string) => {
+          return el + ",";
+        }
+      )}`
+    );
+    setResult(res.data);
+  };
+
+  const tagSubmit = () => {
+    tagGetAxios();
+    setModal(false);
   };
 
   return (
@@ -88,7 +117,7 @@ export default function TagModal({ setModal }: Props) {
                 <div
                   onClick={createTagClickHandler(el)}
                   key={idx}
-                  className={`mb-[10px] cursor-pointer px-[20px] py-[10px] mr-[10px]  rounded-full  ${tags.includes(el) ? "bg-red-500 text-white" : "bg-white border border-solid border-gray-200"}`}
+                  className={`mb-[10px] cursor-pointer px-[20px] py-[10px] mr-[10px]  rounded-full  ${modalTags.includes(el) ? "bg-red-500 text-white" : "bg-white border border-solid border-gray-200"}`}
                 >
                   <p>{el}</p>
                 </div>
@@ -96,9 +125,11 @@ export default function TagModal({ setModal }: Props) {
             })}
           </div>
           <div className="flex mt-[150px] ml-[24px] items-center">
-            <div className="cursor-pointer w-[48px] h-[48px] mr-[10px] rounded-[12px] border border-solid border-gray-200 flex justify-center items-center">
+            <div
+              onClick={() => setModalTags([])}
+              className="cursor-pointer w-[48px] h-[48px] mr-[10px] rounded-[12px] border border-solid border-gray-200 flex justify-center items-center"
+            >
               <svg
-                onClick={() => setTags([])}
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -113,8 +144,11 @@ export default function TagModal({ setModal }: Props) {
                 />
               </svg>
             </div>
-            <div className="cursor-pointer w-[256px] h-[48px] rounded-[12px] flex justify-center items-center bg-gray-900 text-white">
-              <p>{tags.length}개 적용하기</p>
+            <div
+              onClick={tagSubmit}
+              className="cursor-pointer w-[256px] h-[48px] rounded-[12px] flex justify-center items-center bg-gray-900 text-white"
+            >
+              <p>{modalTags.length}개 적용하기</p>
             </div>
           </div>
         </div>
