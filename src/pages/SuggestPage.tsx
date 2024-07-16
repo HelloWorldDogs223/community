@@ -257,7 +257,7 @@ export default function SuggestPage() {
             </div>
             <input
               onChange={nameHandler}
-              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  mb-[24px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2"
+              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  mb-[24px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
               placeholder="소속 업체의 이름을 알려 주세요"
             />
             <hr className="mb-[24px]" />
@@ -271,7 +271,7 @@ export default function SuggestPage() {
             </div>
             <input
               onChange={phoneTextHandler}
-              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  mb-[24px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2"
+              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  mb-[24px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
               placeholder="전화번호를 입력해주세요 (숫자만)"
             />
 
@@ -285,7 +285,7 @@ export default function SuggestPage() {
               </span>
 
               <div
-                className={`border border-gray-200 border-solid h-8 justify-center items-center gap-2 inline-flex rounded-[12px] cursor-pointer w-[72px] ${profit === "영리" ? "bg-zinc-800 text-white " : "text-neutral-400"}`}
+                className={`border border-gray-200 border-solid h-8 justify-center items-center gap-2 inline-flex rounded-[8px] cursor-pointer w-[72px] ${profit === "영리" ? "bg-zinc-800 text-white " : "text-neutral-400"}`}
                 onClick={profitClickHandler("영리")}
               >
                 <div className="flex justify-center items-center text-center  text-sm font-medium font-['Roboto'] leading-tight tracking-tight">
@@ -299,7 +299,7 @@ export default function SuggestPage() {
               </div>
 
               <div
-                className={`flex w-[72px] h-8 justify-center border items-center  border-gray-200 border-solid rounded-[12px] ml-[12px] cursor-pointer ${profit === "비영리" ? "bg-zinc-800 text-white w-[80px]" : "text-neutral-400"}`}
+                className={`flex w-[72px] h-8 justify-center border items-center  border-gray-200 border-solid rounded-[8px] ml-[12px] cursor-pointer ${profit === "비영리" ? "bg-zinc-800 text-white w-[80px]" : "text-neutral-400"}`}
                 onClick={profitClickHandler("비영리")}
               >
                 {profit === "비영리" && (
@@ -325,7 +325,7 @@ export default function SuggestPage() {
             </div>
             <input
               onChange={introTextHandler}
-              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2"
+              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
               placeholder="소속 업체를 한줄로 간략히 소개해 주세요 "
             />
 
@@ -369,7 +369,7 @@ export default function SuggestPage() {
                 style={{ lineHeight: "1.5" }}
                 maxLength={400}
                 onChange={adTextHandler}
-                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none focus:border-gray-600 focus:border-2"
+                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
                 placeholder="해당 커뮤니티 내에서 어떤 제품을 어떻게 홍보하고 싶은가요?
 ex) -------"
               />
@@ -398,7 +398,7 @@ ex) -------"
                 <input
                   value={money}
                   onChange={moneyHandler}
-                  className="w-[477px] h-12 relative rounded border border-stone-300 border-solid ml-[64px] pl-[24px] pt-[3px] pr-[10px] focus:border-gray-600 focus:border-2"
+                  className="w-[477px] h-12 relative rounded border border-stone-300 border-solid ml-[64px] pl-[24px] pt-[3px] pr-[10px] focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
                   placeholder="제안 단가"
                   min={0}
                   step={100000}
@@ -506,7 +506,7 @@ ex) -------"
               <textarea
                 maxLength={400}
                 onChange={profitTextHandler}
-                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none focus:border-gray-600 focus:border-2"
+                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
                 style={{ lineHeight: "1.5" }}
                 placeholder="커뮤니티에 어떤 혜택을 제공할 수 있나요?  
 ex) -------"
