@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
+import HeaderFix from "../components/HeaderFix";
 
 export default function SuggestPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -158,11 +159,11 @@ export default function SuggestPage() {
   }, []);
 
   return (
-    <div className="min-h-screen h-full pb-[64px]">
-      <Header />
-      <div className="flex items-center flex-col">
+    <div className="min-h-screen h-full pb-[64px] ">
+      <HeaderFix />
+      <div className="flex items-center flex-col pt-[56px] overflow-hidden">
         <div className="flex flex-col">
-          <div className="w-[780px] h-14 relative rounded border border-stone-300 border-solid mt-[56px] ">
+          <div className="w-[780px] h-14 relative rounded border border-stone-300 border-solid mt-[56px]">
             <div className="left-[24px] top-[10px] absolute justify-start items-center gap-1 inline-flex">
               <div className="text-stone-500 text-sm font-normal font-['Inter']">
                 현재
@@ -184,7 +185,10 @@ export default function SuggestPage() {
           </div>
         </div>
         <div className=" flex mt-[66px]  justify-center w-full relative ml-[60px]">
-          <div className=" flex flex-col  sticky top-[250px]  h-full">
+          <div
+            className=" flex flex-col  fixed top-[250px] h-full"
+            style={{ left: "calc(50% - 394px)" }}
+          >
             <div className="flex mb-[18px]">
               <div
                 className={`w-5 h-5 px-[5.67px] py-[3.20px] ${isVisible || isVisibleThird ? "bg-stone-300" : "bg-zinc-800"} rounded-[19.22px] justify-center items-center gap-[5.67px] inline-flex mr-[8px]`}
@@ -196,7 +200,7 @@ export default function SuggestPage() {
                 </div>
               </div>
               <div
-                className={`text-[15px] font-semibold font-['Inter'] leading-tight ${isVisible || isVisibleThird ? "text-stone-300" : "text-zinc-800"}`}
+                className={`text-[15px] font-semibold font-['Inter'] leading-tight ${isVisible || isVisibleThird ? "text-[#cccccc]" : "text-[#333333]"}`}
               >
                 소속 업체
               </div>
@@ -210,7 +214,7 @@ export default function SuggestPage() {
                 </div>
               </div>
               <div
-                className={`text-[15px] font-semibold font-['Inter'] leading-tight" ${isVisible && !isVisibleThird ? "text-zinc-800" : "text-stone-300"}`}
+                className={`text-[15px] font-semibold font-['Inter'] leading-tight" ${isVisible && !isVisibleThird ? "text-[#333333]" : "text-[#cccccc]"}`}
               >
                 홍보 제안
               </div>
@@ -225,20 +229,27 @@ export default function SuggestPage() {
                 </div>
               </div>
               <div
-                className={`text-stone-300 text-[15px] font-semibold font-['Inter'] leading-tight ${isVisibleThird ? "text-zinc-800" : "text-stone-300"}`}
+                className={` text-[15px] font-semibold font-['Inter'] leading-tight ${isVisibleThird ? "text-[#333333]" : "text-[#cccccc]"}`}
               >
                 제공 혜택
               </div>
             </div>
           </div>
 
-          <div className="ml-[70px]">
-            <div className="text-zinc-800 text-xl font-semibold font-['Inter'] leading-7">
+          <div
+            className="ml-[70px] overflow-auto h-[550px] hide-scrollbar"
+            style={{
+              overflow: "-moz-scrollbars-none",
+              msOverflowStyle: "none",
+              scrollbarWidth: "none",
+            }}
+          >
+            <div className="text-[#333333] text-xl font-semibold font-['Inter'] leading-7">
               1) 내가 소속된 업체 정보
             </div>
             <div className="mt-[56px] mb-[26px]">
-              <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug ">
-                업체명
+              <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug ">
+                업체명&nbsp;
               </span>
               <span className="text-rose-500 text-base font-semibold font-['Inter'] leading-snug">
                 *
@@ -246,12 +257,13 @@ export default function SuggestPage() {
             </div>
             <input
               onChange={nameHandler}
-              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px]"
+              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  mb-[24px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2"
               placeholder="소속 업체의 이름을 알려 주세요"
             />
+            <hr className="mb-[24px]" />
             <div className="mb-[26px]">
-              <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug">
-                담당자 전화번호
+              <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
+                담당자 전화번호&nbsp;
               </span>
               <span className="text-rose-500 text-base font-semibold font-['Inter'] leading-snug">
                 *
@@ -259,13 +271,14 @@ export default function SuggestPage() {
             </div>
             <input
               onChange={phoneTextHandler}
-              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  py-[18px] pl-[25px]"
+              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  mb-[24px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2"
               placeholder="전화번호를 입력해주세요 (숫자만)"
             />
 
+            <hr className="mb-[24px]" />
             <div className="flex mt-[56px]">
-              <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug mr-[1px]">
-                업체 유형
+              <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug mr-[1px]">
+                업체 유형&nbsp;
               </span>
               <span className="text-rose-500 text-base font-semibold font-['Inter'] leading-snug mr-[62px]">
                 *
@@ -278,21 +291,7 @@ export default function SuggestPage() {
                 <div className="flex justify-center items-center text-center  text-sm font-medium font-['Roboto'] leading-tight tracking-tight">
                   {profit === "영리" && (
                     <div className="rounded-full border border-white border-solid mr-[4px]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="10"
-                        height="8"
-                        viewBox="0 0 8 6"
-                        fill="none"
-                      >
-                        <path
-                          id="Vector 10"
-                          d="M1 2.33333L3.4 5L7 1"
-                          stroke="#F6F6F6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      <img src="/check.png" />
                     </div>
                   )}
                   <span>영리</span>
@@ -305,21 +304,7 @@ export default function SuggestPage() {
               >
                 {profit === "비영리" && (
                   <div className="rounded-full border border-white border-solid mr-[4px]">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="10"
-                      height="8"
-                      viewBox="0 0 8 6"
-                      fill="none"
-                    >
-                      <path
-                        id="Vector 10"
-                        d="M1 2.33333L3.4 5L7 1"
-                        stroke="#F6F6F6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <img src="/check.png" />
                   </div>
                 )}
                 <span className="  text-sm font-medium font-['Roboto']">
@@ -328,9 +313,11 @@ export default function SuggestPage() {
               </div>
             </div>
 
-            <div className="mt-[56px] mb-[26px]">
-              <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug">
-                한줄 소개
+            <hr className="mt-[24px]" />
+
+            <div className="mt-[24px] mb-[26px]">
+              <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
+                한줄 소개&nbsp;
               </span>
               <span className="text-rose-500 text-base font-semibold font-['Inter'] leading-snug">
                 *
@@ -338,7 +325,7 @@ export default function SuggestPage() {
             </div>
             <input
               onChange={introTextHandler}
-              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px]"
+              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2"
               placeholder="소속 업체를 한줄로 간략히 소개해 주세요 "
             />
 
@@ -346,16 +333,18 @@ export default function SuggestPage() {
               2) 커뮤니티에 홍보할 제품/서비스
             </div>
 
+            <hr className="mb-[24px] mt-[24px]" />
+
             <div className="flex items-center mt-[56px] justify-between">
               <div className="">
-                <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug">
-                  홍보 내용
+                <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
+                  홍보 내용&nbsp;
                 </span>
                 <span className="text-rose-500 text-base font-semibold font-['Inter'] leading-snug">
                   *
                 </span>
               </div>
-              <div className="flex">
+              <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -377,9 +366,10 @@ export default function SuggestPage() {
 
             <div className="relative">
               <textarea
+                style={{ lineHeight: "1.5" }}
                 maxLength={400}
                 onChange={adTextHandler}
-                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none"
+                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none focus:border-gray-600 focus:border-2"
                 placeholder="해당 커뮤니티 내에서 어떤 제품을 어떻게 홍보하고 싶은가요?
 ex) -------"
               />
@@ -388,10 +378,12 @@ ex) -------"
               </div>
             </div>
 
-            <div className="flex items-center mt-[56px] mb-[60px]">
+            <hr className="mt-[24px]" />
+
+            <div className="flex items-center mt-[24px] mb-[60px]">
               <div className="" ref={targetRef}>
-                <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug">
-                  제안 단가
+                <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
+                  제안 단가&nbsp;
                 </span>
                 <span className="text-rose-500 text-base font-semibold font-['Inter'] leading-snug">
                   *
@@ -406,7 +398,7 @@ ex) -------"
                 <input
                   value={money}
                   onChange={moneyHandler}
-                  className="w-[477px] h-12 relative rounded border border-stone-300 border-solid ml-[64px] pl-[24px] pt-[5px] pr-[10px]"
+                  className="w-[477px] h-12 relative rounded border border-stone-300 border-solid ml-[64px] pl-[24px] pt-[3px] pr-[10px] focus:border-gray-600 focus:border-2"
                   placeholder="제안 단가"
                   min={0}
                   step={100000}
@@ -418,10 +410,10 @@ ex) -------"
                     <svg
                       onMouseDown={preventBlur}
                       onClick={increaseNumber}
-                      className="cursor-pointer absolute top-[0px] right-[0px]"
+                      className="cursor-pointer absolute top-[2px] right-[2px]"
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
-                      height="25"
+                      height="23"
                       viewBox="0 0 25 25"
                       fill="none"
                     >
@@ -429,14 +421,14 @@ ex) -------"
                         x="0.5"
                         y="-0.5"
                         width="25"
-                        height="25"
+                        height="23"
                         fill="#EEEEEE"
                       />
                       <rect
                         x="0.5"
                         y="-0.5"
                         width="25"
-                        height="25"
+                        height="24"
                         stroke="#CCCCCC"
                       />
                       <path d="M8 14L13 9L18 14H8Z" fill="black" />
@@ -444,10 +436,10 @@ ex) -------"
                     <svg
                       onMouseDown={preventBlur}
                       onClick={decreaseNumber}
-                      className="cursor-pointer absolute top-[21px] right-0"
+                      className="cursor-pointer absolute top-[24px] right-[2px]"
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
-                      height="26"
+                      height="23"
                       viewBox="0 0 25 26"
                       fill="none"
                     >
@@ -455,14 +447,14 @@ ex) -------"
                         x="0.5"
                         y="0.5"
                         width="25"
-                        height="25"
+                        height="23"
                         fill="#EEEEEE"
                       />
                       <rect
                         x="0.5"
                         y="0.5"
                         width="25"
-                        height="25"
+                        height="24"
                         stroke="#CCCCCC"
                       />
                       <path d="M8 11L13 16L18 11H8Z" fill="black" />
@@ -472,21 +464,23 @@ ex) -------"
               </div>
             </div>
 
-            <div className="text-zinc-800 text-xl font-semibold font-['Inter'] leading-7">
+            <div className="text-[#333333] text-xl font-semibold font-['Inter'] leading-7">
               3) 커뮤니티에 제공할 혜택
             </div>
 
-            <div className="flex mt-[56px] items-center justify-between">
+            <hr className="mt-[24px]" />
+
+            <div className="flex mt-[24px] items-center justify-between">
               <div className="">
-                <span className="text-zinc-800 text-base font-semibold font-['Inter'] leading-snug">
-                  혜택 내용
+                <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
+                  혜택 내용&nbsp;
                 </span>
                 <span className="text-rose-500 text-base font-semibold font-['Inter'] leading-snug">
                   *
                 </span>
               </div>
 
-              <div className="flex">
+              <div className="flex items-center">
                 <svg
                   className="mr-[8px]"
                   xmlns="http://www.w3.org/2000/svg"
@@ -508,20 +502,24 @@ ex) -------"
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative mb-[64px]">
               <textarea
                 maxLength={400}
                 onChange={profitTextHandler}
-                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none"
+                className="mt-[26px] w-[618px] h-[200px] relative bg-zinc-100 rounded-lg pt-[30px] pl-[24px] resize-none focus:border-gray-600 focus:border-2"
+                style={{ lineHeight: "1.5" }}
                 placeholder="커뮤니티에 어떤 혜택을 제공할 수 있나요?  
 ex) -------"
               />
-              <div className="left-[537px] top-[190px] absolute text-right text-neutral-400 text-[15px] font-normal font-['Inter'] leading-tight">
+              <div
+                ref={targetRef2}
+                className="left-[537px] top-[190px] absolute text-right text-neutral-400 text-[15px] font-normal font-['Inter'] leading-tight"
+              >
                 {profitText.length}/400자
               </div>
             </div>
 
-            <div className="flex mt-[58px] " ref={targetRef2}>
+            <div className="flex mt-[58px] fixed bottom-[64px] left-[50%] translate-x-[-40%]">
               <div
                 onClick={() => navigate("/")}
                 className="cursor-pointer w-[302.50px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[12px]"

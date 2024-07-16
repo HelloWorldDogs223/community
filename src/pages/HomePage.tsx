@@ -320,7 +320,7 @@ export default function HomePage() {
         <></>
       )}
       {done ? (
-        <div className="w-full absolute top-[0] left-[0] flex justify-center">
+        <div className="w-full absolute left-[50%] translate-x-[-50%] top-0 flex justify-center z-[100]">
           <div className="w-[1054px] h-14 fixed top-[100px] z-[103] bg-zinc-800 rounded-lg">
             <div className="left-[24px] top-[10px] absolute justify-start items-center gap-1 inline-flex">
               <div className="px-[4.57px] py-[5.71px] rounded-2xl border border-neutral-100 justify-center items-center gap-[4.57px] flex" />
