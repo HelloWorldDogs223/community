@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 export default function HeaderFix() {
   const navigate = useNavigate();
   return (
-    <div className="fixed z-[3] top-0 left-0 w-full bg-white">
+    <div className="h-[56px] fixed z-[3] top-0 left-0 w-full bg-white">
       <div className="flex justify-between pl-[40px] py-[16px] pr-[64px] text-xl border-b border-gray-200 border-solid font-bold">
         <div
           className="flex items-center cursor-pointer mr-[8px]"
           onClick={() => navigate("/")}
         >
-          <img src="/symbol.png" className="mr-[4px]" width={30} height={30} />
-          <p>sponsors</p>
+          <img src="/symbol.png" className="w-[122px] h-[24px]" />
         </div>
         {/* <div className="flex text-[14px] items-center font-normal">
           <span className="mr-[12px]">로그인</span>

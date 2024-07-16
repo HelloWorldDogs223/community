@@ -121,7 +121,7 @@ export default function TagModal({
                 <div
                   onClick={createTagClickHandler(el)}
                   key={idx}
-                  className={`mb-[10px] cursor-pointer border border-solid px-[20px] py-[10px] mr-[10px]  rounded-full  ${tags.includes(el) ? "bg-red-500 border-transparent text-white" : "bg-white border border-solid border-gray-200"}`}
+                  className={`mb-[10px] cursor-pointer border border-solid px-[20px] py-[10px] mr-[10px]  rounded-full  ${tags.includes(el) ? "bg-[#ff5a5f] border-transparent text-white" : "bg-neutral-100 border border-solid border-gray-200"}`}
                 >
                   <p>{el}</p>
                 </div>

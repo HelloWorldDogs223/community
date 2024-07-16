@@ -9,8 +9,7 @@ export default function Header() {
           className="flex items-center cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <img className="mr-[4px]" src="/symbol.png" width={30} height={30} />
-          <p>sponsors</p>
+          <img src="/symbol.png" width={30} height={30} />
         </div>
         {/* <div className="flex text-[14px] items-center font-normal">
           <span className="mr-[12px]">로그인</span>

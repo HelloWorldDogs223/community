@@ -9,48 +9,55 @@ import TagModal from "../components/TagModal";
 const MENU_NAME = [
   {
     text: "커뮤니티 둘러보기",
-    color: "text-stone-500",
+    color: "text-zinc-8000",
     font: "font-normal",
-    margin: "mb-[29px]",
+    margin: "pb-[29px]",
   },
   {
     text: "캠페인 관리",
-    color: "text-stone-500",
+    color: "text-zinc-800",
     font: "font-normal",
-    margin: "mb-[16px]",
+    margin: "pb-[16px]",
   },
   {
     text: "내가 의뢰한 캠페인",
-    color: "text-stone-500",
+    color: "text-zinc-800",
     font: "font-normal",
-    margin: "mb-[6px]",
+    margin: "pb-[6px]",
+    none: true,
+    opacity: "opacity-40",
   },
   {
     text: "의뢰 받은 캠페인",
-    color: "text-stone-500",
+    color: "text-zinc-800",
     font: "font-normal",
-    margin: "mb-[24px]",
+    none: true,
+    margin: "pb-[24px]",
+    opacity: "opacity-40",
   },
   {
     text: "이용방법",
-    color: "text-gray-300",
+    color: "text-zinc-800",
     font: "font-normal",
     none: true,
-    margin: "mb-[32px]",
+    margin: "pb-[32px]",
+    opacity: "opacity-40",
   },
   {
     text: "정산관리",
-    color: "text-gray-300",
+    color: "text-zinc-800",
     font: "font-normal",
     none: true,
-    margin: "mb-[32px]",
+    margin: "pb-[32px]",
+    opacity: "opacity-40",
   },
   {
     text: "계정관리",
-    color: "text-gray-300",
+    color: "text-zinc-800",
     font: "font-normal",
     none: true,
-    margin: "mb-[32px]",
+    margin: "pb-[32px]",
+    opacity: "opacity-40",
   },
   { text: "공지사항", color: "text-gray-300", font: "font-normal", none: true },
 ];
@@ -181,15 +188,15 @@ export default function HomePage() {
   }, [tags]);
 
   return (
-    <div className="min-h-screen  bg-[#F6F6F6] flex flex-col">
+    <div className="min-h-screen bg-[#F6F6F6] flex flex-col h-full">
       <HeaderFix />
-      <div className="flex h-screen">
+      <div className="flex h-screen ">
         <div className="pl-[40px] pt-[98px] border-r border-solid border-gray-200 pr-[63px] min-w-[240px] fixed z-[1] h-screen bg-white">
           {MENU_NAME.map((el: any, idx) => {
             return (
               <div
                 key={idx}
-                className={`${el.text === "내가 의뢰한 캠페인" || el.text === "의뢰 받은 캠페인" ? "flex items-center" : ""} ${el.margin}`}
+                className={`${el.text === "내가 의뢰한 캠페인" || el.text === "의뢰 받은 캠페인" ? "flex items-center" : ""} ${el.margin} ${el.opacity}`}
               >
                 {el.text === "내가 의뢰한 캠페인" ||
                 el.text === "의뢰 받은 캠페인" ? (
@@ -231,9 +238,9 @@ export default function HomePage() {
               ${
                 el.text === "내가 의뢰한 캠페인" ||
                 el.text === "의뢰 받은 캠페인"
-                  ? "!text-sm h-[24px]" // 텍스트 크기에 맞춘 높이 설정
-                  : "!text-xl h-[28px]" // 텍스트 크기에 맞춘 높이 설정
-              } pb-[2px]`} // 추가된 부분
+                  ? "!text-sm h-[32px]" // 텍스트 크기에 맞춘 높이 설정
+                  : "!text-xl h-[34px]" // 텍스트 크기에 맞춘 높이 설정
+              } pb-[6px]`} // 추가된 부분
                 >
                   {el.text}
                 </p>
@@ -241,46 +248,42 @@ export default function HomePage() {
             );
           })}
         </div>
-        <div className="ml-[247px] min-h-screen relative pt-[80px] ]">
-          <div className="z-[1] sticky pt-[20px] top-[63px] bg-neutral-100">
-            <div>
-              <div className=" pl-[64px]">
-                <p className="font-semibold text-[28px] mb-[12px]">
-                  Explore Community for
-                  <span className="text-red-500"> Win-Win!</span>
-                </p>
-                <p className="text-gray-300 mb-[56px]">
-                  협업할 커뮤니티를 쉽고 빠르게 찾아 보세요!
-                </p>
-              </div>
-              <div className="flex items-center pb-[20px] pl-[64px]">
-                <svg
-                  className="mr-[9px]"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="4"
-                  height="4"
-                  viewBox="0 0 4 4"
-                  fill="none"
-                >
-                  <circle cx="2" cy="2" r="2" fill="#FF5A5F" />
-                </svg>
-                <div className="mr-[24px] ">
-                  <p className="font-semibold text-[16px]">카테고리</p>
-                </div>
-                <div className="flex">
-                  {TAG_NAME.map((el: any, idx) => {
-                    return (
-                      <div
-                        onClick={createTagClickHandler(el)}
-                        key={idx}
-                        className={`border border-solid  cursor-pointer px-[24px] py-[10px] mr-[12px] rounded-full ${tags.includes(el) ? "bg-red-500 text-white border-transparent" : "bg-white hover:bg-gray-100 border border-solid border-gray-200"}`}
-                      >
-                        <p>{el}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+        <div className="ml-[247px] h-full relative pt-[118px] bg-neutral-100 flex flex-col overflow-auto">
+          <div className=" pl-[64px]">
+            <p className="font-semibold text-[28px] mb-[16px]">
+              Explore Community for
+              <span className="text-rose-500"> Win-Win!</span>
+            </p>
+            <p className="text-neutral-400 mb-[46px]">
+              협업할 커뮤니티를 쉽고 빠르게 찾아 보세요!
+            </p>
+          </div>
+          <div className="flex items-center py-[20px] pl-[64px] z-[2] sticky top-[-63px] bg-neutral-100 ">
+            <svg
+              className="mr-[9px]"
+              xmlns="http://www.w3.org/2000/svg"
+              width="4"
+              height="4"
+              viewBox="0 0 4 4"
+              fill="none"
+            >
+              <circle cx="2" cy="2" r="2" fill="#FF5A5F" />
+            </svg>
+            <div className="mr-[24px] ">
+              <p className="font-semibold text-[16px]">카테고리</p>
+            </div>
+            <div className="flex">
+              {TAG_NAME.map((el: any, idx) => {
+                return (
+                  <div
+                    onClick={createTagClickHandler(el)}
+                    key={idx}
+                    className={`border border-solid  cursor-pointer px-[24px] py-[10px] mr-[12px] rounded-full ${tags.includes(el) ? "bg-[#ff5a5f] text-white border-transparent" : "bg-neutral-100 hover:bg-gray-100 border border-solid border-gray-200"}`}
+                  >
+                    <p>{el}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
