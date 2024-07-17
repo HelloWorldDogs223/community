@@ -502,7 +502,7 @@ ex) -------"
               </div>
             </div>
 
-            <div className="relative mb-[64px]">
+            <div className="relative mb-[128px]">
               <textarea
                 maxLength={400}
                 onChange={profitTextHandler}

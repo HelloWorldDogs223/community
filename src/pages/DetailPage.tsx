@@ -136,7 +136,7 @@ export default function DetailPage() {
           {detailInfo.promotionContent}
         </div>
         <div
-          className="flex mt-[106px] fixed bottom-[64px] "
+          className="flex  fixed bottom-[0px] bg-white h-[100px] pb-[100px]"
           style={{ left: "calc(50% - 394px)" }}
         >
           <div
