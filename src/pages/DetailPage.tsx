@@ -42,7 +42,6 @@ export default function DetailPage() {
         `https://sponsors.duckdns.org/api/v1/communities/${uid}`
       );
       setDetailInfo(res.data);
-      console.log(res.data);
     };
     getAxios();
   }, []);
