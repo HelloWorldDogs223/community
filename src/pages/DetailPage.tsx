@@ -56,13 +56,13 @@ export default function DetailPage() {
       <div className="flex items-center flex-col mb-[44px] mt-[56px]">
         <div className="flex justify-center mb-[48px]">
           <img
-            className="w-[780px] h-80 rounded-xl mt-[56px]"
+            className="w-[780px] h-80 rounded-xl mt-[56px] object-fill"
             src={location.state.img}
           />
         </div>
         <div className="flex items-center w-[780px] mb-[50px]">
           <img
-            className="w-20 h-20 rounded-full mr-[24px]"
+            className="w-20 h-20 rounded-full mr-[24px] object-fill"
             src={detailInfo.communityOwnerImage}
           />
           <div>
@@ -141,10 +141,7 @@ export default function DetailPage() {
         <div className="w-[780px] pb-[200px] text-[#333333]">
           {detailInfo.promotionContent}
         </div>
-        <div
-          className="flex  fixed bottom-[0px] bg-white h-[100px] pb-[100px]"
-          style={{ left: "calc(50% - 394px)" }}
-        >
+        <div className="flex  fixed bottom-[0px] bg-white h-[100px] pb-[100px] left-[50%] translate-x-[-40%]">
           <div
             onClick={() => navigate("/")}
             className="cursor-pointer w-[382px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[24px]"

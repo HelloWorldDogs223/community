@@ -160,7 +160,7 @@ export default function SuggestPage() {
         setIsVisibleThird(entry.isIntersecting);
       },
       {
-        threshold: 0.99, // 요소의 10%가 화면에 보이면 콜백 실행
+        threshold: 0.99,
       }
     );
 
@@ -567,10 +567,10 @@ ex) -------"
               </div>
             </div>
 
-            <div className="flex  fixed bottom-[35px] left-[50%] translate-x-[-40%] pt-[58px] h-[200px] bg-white">
+            <div className="flex fixed bottom-[0px] left-[50%] translate-x-[-40%] pt-[58px] pb-[100px] h-[100px] bg-white">
               <div
                 onClick={() => navigate("/")}
-                className="cursor-pointer w-[302.50px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[12px]"
+                className="cursor-pointer w-[382px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[24px]"
               >
                 <div className="text-center text-stone-500 text-sm font-semibold font-['Inter'] leading-tight tracking-tight">
                   홈으로
@@ -578,7 +578,7 @@ ex) -------"
               </div>
               <div
                 onClick={submitHandler}
-                className={`cursor-pointer w-[302.50px] h-12 px-6 py-2.5 ${all ? "bg-rose-500" : "bg-stone-300"} rounded-xl flex-col justify-center items-center gap-2 inline-flex`}
+                className={`cursor-pointer w-[382px] h-12 px-6 py-2.5 ${all ? "bg-rose-500" : "bg-stone-300"} rounded-xl flex-col justify-center items-center gap-2 inline-flex`}
               >
                 <div className="text-center text-neutral-50 text-sm font-semibold font-['Inter'] leading-tight tracking-tight">
                   제출하기

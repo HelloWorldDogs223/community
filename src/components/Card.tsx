@@ -22,8 +22,8 @@ export default function Card({
   return (
     <div className="w-[300px] mb-[24px] bg-neutral-50 hover:shadow rounded-xl p-[16px] flex flex-col justify-center  border border-[#FAFAFA] border-solid">
       <div className="flex items-center justify-center">
-        <div className="bg-gray-600 w-[290px] h-[140px] flex justify-center items-center text-white rounded-[8px] mb-[14px]">
-          <img src={communityProfileImage} />
+        <div className="bg-gray-600 flex justify-center items-center text-white rounded-[8px] mb-[14px]">
+          <img src={communityProfileImage} className="object-fill" />
         </div>
       </div>
       <div className="mb-[8px] font-bold text-[#333333]">
