@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       dropShadow: {
-        "custom-1": "0 4px 4px rgba(0, 0, 0, 0.25)", // 더 진한 그림자
-        "custom-2": "0 8px 8px rgba(0, 0, 0, 0.15)", // 더 진한 그림자
+        "custom-1": "0 4px 4px rgba(0, 0, 0, 0.10)", // 더 진한 그림자
+        "custom-2": "0 8px 8px rgba(0, 0, 0, 0.05)", // 더 진한 그림자
       },
     },
   },

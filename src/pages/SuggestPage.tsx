@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import Header from "../components/Header";
 import HeaderFix from "../components/HeaderFix";
+import axios from "axios";
 
 export default function SuggestPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,6 +21,9 @@ export default function SuggestPage() {
   const navigate = useNavigate();
   const targetRef = useRef(null);
   const targetRef2 = useRef(null);
+
+  const location = useLocation();
+  const { state } = location;
 
   const profitClickHandler = (
     item: any
@@ -91,7 +94,7 @@ export default function SuggestPage() {
     }
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (
       money.length > 0 &&
       adText.length > 0 &&
@@ -100,9 +103,26 @@ export default function SuggestPage() {
       phone.length > 0 &&
       intro.length > 0
     ) {
-      navigate("/", {
-        state: { done: true },
-      });
+      try {
+        // await axios.post(
+        //   "https://sponsors.duckdns.org/api/v1/communities/proposal",
+        //   {
+        //     communityId: state.uid,
+        //     communityName: state.detailInfo.name,
+        //     customerName: name,
+        //     customerType: profit,
+        //     introduction: intro,
+        //     promotionContent: adText,
+        //     promotionPrice: money,
+        //     promotionBenefits: profitText,
+        //   }
+        // );
+        navigate("/", {
+          state: { done: true, detailInfo: state.detailInfo },
+        });
+      } catch (e: any) {
+        console.log(e);
+      }
     }
   };
 
@@ -161,9 +181,9 @@ export default function SuggestPage() {
   return (
     <div className="min-h-screen h-full pb-[64px] ">
       <HeaderFix />
-      <div className="flex items-center flex-col pt-[56px] overflow-hidden">
-        <div className="flex flex-col">
-          <div className="w-[780px] h-14 relative rounded border border-stone-300 border-solid mt-[56px]">
+      <div className="flex items-center flex-col pt-[56px] overflow-hidden relative ">
+        <div className="h-[150px] w-full  fixed bg-white z-[2] top-[52px] ">
+          <div className="w-[780px] h-[70px]  rounded border border-stone-300 border-solid absolute top-[60px] left-[50%] translate-x-[-50%] ">
             <div className="left-[24px] top-[10px] absolute justify-start items-center gap-1 inline-flex">
               <div className="text-stone-500 text-sm font-normal font-['Inter']">
                 현재
@@ -171,10 +191,10 @@ export default function SuggestPage() {
               <div className="p-2.5 justify-center items-center gap-2.5 flex">
                 <div>
                   <span className="text-rose-500 text-base font-bold font-['Inter']">
-                    윌펫
+                    {state.detailInfo.name}
                   </span>
                   <span className="text-stone-500 text-base font-bold font-['Inter']">
-                    (반려동물 지식 커뮤니티)
+                    ({state.detailInfo.description})
                   </span>
                 </div>
               </div>
@@ -184,7 +204,7 @@ export default function SuggestPage() {
             </div>
           </div>
         </div>
-        <div className=" flex mt-[66px]  justify-center w-full relative ml-[60px]">
+        <div className=" flex mt-[190px]  justify-center w-full relative ml-[60px]">
           <div
             className=" flex flex-col  fixed top-[250px] h-full"
             style={{ left: "calc(50% - 394px)" }}
@@ -290,8 +310,22 @@ export default function SuggestPage() {
               >
                 <div className="flex justify-center items-center text-center  text-sm font-medium font-['Roboto'] leading-tight tracking-tight">
                   {profit === "영리" && (
-                    <div className="rounded-full border border-white border-solid mr-[4px]">
-                      <img src="/check.png" />
+                    <div className="w-[17px] h-[17px] px-1 py-[5px] bg-zinc-800 rounded-[13.57px] border border-neutral-100 justify-center items-center gap-1 inline-flex border-solid mr-[4px]">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="80"
+                        height="60"
+                        viewBox="0 0 8 6"
+                        fill="none"
+                      >
+                        <path
+                          id="Vector 10"
+                          d="M1 2.33333L3.4 5L7 1"
+                          stroke="#F6F6F6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
                     </div>
                   )}
                   <span>영리</span>
@@ -303,8 +337,22 @@ export default function SuggestPage() {
                 onClick={profitClickHandler("비영리")}
               >
                 {profit === "비영리" && (
-                  <div className="rounded-full border border-white border-solid mr-[4px]">
-                    <img src="/check.png" />
+                  <div className="w-[17px] h-[17px] px-1 py-[5px] bg-zinc-800 rounded-[13.57px] border border-neutral-100 justify-center items-center gap-1 inline-flex border-solid mr-[4px]">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="80"
+                      height="60"
+                      viewBox="0 0 8 6"
+                      fill="none"
+                    >
+                      <path
+                        id="Vector 10"
+                        d="M1 2.33333L3.4 5L7 1"
+                        stroke="#F6F6F6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </div>
                 )}
                 <span className="  text-sm font-medium font-['Roboto']">
@@ -519,7 +567,7 @@ ex) -------"
               </div>
             </div>
 
-            <div className="flex mt-[58px] fixed bottom-[64px] left-[50%] translate-x-[-40%]">
+            <div className="flex  fixed bottom-[35px] left-[50%] translate-x-[-40%] pt-[58px] h-[200px] bg-white">
               <div
                 onClick={() => navigate("/")}
                 className="cursor-pointer w-[302.50px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[12px]"

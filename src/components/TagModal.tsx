@@ -89,7 +89,9 @@ export default function TagModal({
         className="bg-white py-[24px] absolute z-[100] top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] w-[360px] h-[480px] rounded-[20px]"
       >
         <div className="flex mb-[40px]">
-          <p className="font-bold text-[18px] ml-[154px] mr-[98px]">카테고리</p>
+          <p className="font-bold text-[18px] ml-[154px] mr-[98px] text-[#333333]">
+            카테고리
+          </p>
           <svg
             className="cursor-pointer"
             onClick={outClickHandler}
@@ -121,7 +123,7 @@ export default function TagModal({
                 <div
                   onClick={createTagClickHandler(el)}
                   key={idx}
-                  className={`mb-[10px] cursor-pointer border border-solid px-[20px] py-[10px] mr-[10px]  rounded-full  ${tags.includes(el) ? "bg-[#ff5a5f] border-transparent text-white" : "bg-neutral-100 border border-solid border-gray-200"}`}
+                  className={`mb-[10px] cursor-pointer text-[#333333] border border-solid px-[20px] py-[10px] mr-[10px]  rounded-full  ${tags.includes(el) ? "bg-[#ff5a5f] border-transparent text-white" : "bg-neutral-100 hover:bg-gray-200 border border-solid border-gray-200"}`}
                 >
                   <p>{el}</p>
                 </div>

@@ -1,7 +1,5 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-
-import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import HeaderFix from "../components/HeaderFix";
 
@@ -16,11 +14,15 @@ interface Info {
   promotionDomain: string;
   promotionPrice: number;
   promotionContent: string;
+  communityOwnerImage: string;
   communityProfileImage: string;
+  ownerImage: string;
 }
 
 export default function DetailPage() {
   const { uid } = useParams();
+  const location = useLocation();
+
   const [detailInfo, setDetailInfo] = useState<Info>({
     id: "",
     name: "",
@@ -32,6 +34,8 @@ export default function DetailPage() {
     promotionDomain: "",
     promotionPrice: 0,
     promotionContent: "",
+    communityOwnerImage: "",
+    ownerImage: "",
     communityProfileImage: "",
   });
   const navigate = useNavigate();
@@ -51,12 +55,15 @@ export default function DetailPage() {
       <HeaderFix />
       <div className="flex items-center flex-col mb-[44px] mt-[56px]">
         <div className="flex justify-center mb-[48px]">
-          <img className="w-[780px] h-80 rounded-xl mt-[56px]" src="/dog.png" />
+          <img
+            className="w-[780px] h-80 rounded-xl mt-[56px]"
+            src={location.state.img}
+          />
         </div>
         <div className="flex items-center w-[780px] mb-[50px]">
           <img
             className="w-20 h-20 rounded-full mr-[24px]"
-            src={detailInfo.communityProfileImage}
+            src={detailInfo.communityOwnerImage}
           />
           <div>
             <div className="text-[#333333] text-[28px] font-semibold font-['Inter'] leading-[38.08px]">
@@ -147,7 +154,7 @@ export default function DetailPage() {
             </div>
           </div>
           <div
-            onClick={() => navigate("/suggest")}
+            onClick={() => navigate("/suggest", { state: { detailInfo, uid } })}
             className="cursor-pointer w-[382px] h-12 px-6 py-2.5 bg-rose-500 rounded-xl flex-col justify-center items-center gap-2 inline-flex"
           >
             <div className="text-center text-neutral-50 text-sm font-semibold font-['Inter'] leading-tight tracking-tight">

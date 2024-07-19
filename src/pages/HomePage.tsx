@@ -86,13 +86,14 @@ const styleObject = {
 export default function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const doneVal = location.state || false;
 
   const [menu, setMenu] = useState("커뮤니티 둘러보기");
   const [tags, setTags] = useState<string[]>(["전체"]);
   const [modal, setModal] = useState(false);
-  const [done, setDone] = useState(doneVal);
+  const [done, setDone] = useState(false);
   const [result, setResult] = useState<string[]>([]);
+  const [name, setName] = useState("");
+  const [info, setInfo] = useState("");
 
   const createMenuClickHandler = (
     givenMenu: any
@@ -187,6 +188,15 @@ export default function HomePage() {
     tagGetAxios();
   }, [tags]);
 
+  useEffect(() => {
+    if (location.state?.done) {
+      setDone(true);
+      setName(location.state.detailInfo.name);
+      setInfo(location.state.detailInfo.description);
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location.state, navigate, location.pathname]);
+
   return (
     <div className="min-h-screen bg-[#F6F6F6] flex flex-col h-full">
       <HeaderFix />
@@ -229,10 +239,10 @@ export default function HomePage() {
                 <p
                   onClick={createMenuClickHandler(el)}
                   key={idx}
-                  className={`w-full max-w-fit text-[18px] ${el.color} ${el.font} ${el.none ? "" : "hover:text-black/80 hover:font-bold cursor-pointer"}
+                  className={`w-full max-w-fit text-[18px] ${el.color} ${el.font} ${el.none ? "" : "hover:text-[#333333]/80 hover:font-bold cursor-pointer"}
                  ${
                    el.text === menu
-                     ? "!font-bold !text-black border-b-2 border-solid border-black"
+                     ? "!font-bold !text-[#333333] border-b-2 border-solid border-black"
                      : "border-b-2 border-transparent"
                  }
               ${
@@ -250,7 +260,7 @@ export default function HomePage() {
         </div>
         <div className="ml-[247px] h-full relative pt-[118px] bg-neutral-100 flex flex-col overflow-auto">
           <div className=" pl-[64px]">
-            <p className="font-semibold text-[28px] mb-[16px]">
+            <p className="font-semibold text-[28px] mb-[16px] text-[#333333]">
               Explore Community for
               <span className="text-rose-500"> Win-Win!</span>
             </p>
@@ -270,7 +280,9 @@ export default function HomePage() {
               <circle cx="2" cy="2" r="2" fill="#FF5A5F" />
             </svg>
             <div className="mr-[24px] ">
-              <p className="font-semibold text-[16px]">카테고리</p>
+              <p className="font-semibold text-[16px] text-[#333333]">
+                카테고리
+              </p>
             </div>
             <div className="flex">
               {TAG_NAME.map((el: any, idx) => {
@@ -278,7 +290,7 @@ export default function HomePage() {
                   <div
                     onClick={createTagClickHandler(el)}
                     key={idx}
-                    className={`border border-solid  cursor-pointer px-[24px] py-[10px] mr-[12px] rounded-full ${tags.includes(el) ? "bg-[#ff5a5f] text-white border-transparent" : "bg-neutral-100 hover:bg-gray-100 border border-solid border-gray-200"}`}
+                    className={`border border-solid  text-[#333333] cursor-pointer px-[24px] py-[10px] mr-[12px] rounded-full ${tags.includes(el) ? "bg-[#ff5a5f] text-white border-transparent" : "bg-neutral-100 hover:bg-gray-200 border border-solid border-gray-200"}`}
                   >
                     <p>{el}</p>
                   </div>
@@ -287,25 +299,36 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex flex-wrap  pl-[14px] bg-[#F6F6F6]">
-            {result.map((el: any) => {
-              return (
-                <div
-                  onClick={() => navigate(`/detail/${el.id}`)}
-                  key={el.id}
-                  style={styleObject}
-                  className="flex items-center justify-center max-w-[340px] hover:translate-y-[-5px] custom-drop-shadow-hover "
-                >
-                  <Card
-                    id={el.id}
-                    name={el.name}
-                    description={el.description}
-                    communityCategory={el.communityCategory}
-                    userCount={el.userCount}
-                  />
-                </div>
-              );
-            })}
+          <div className="flex flex-wrap  pl-[55px] bg-[#F6F6F6] h-full items-start">
+            {result.length > 0 ? (
+              result.map((el: any) => {
+                return (
+                  <div
+                    onClick={() =>
+                      navigate(`/detail/${el.id}`, {
+                        state: { img: el.communityProfileImage },
+                      })
+                    }
+                    key={el.id}
+                    style={styleObject}
+                    className="flex items-center justify-center max-w-[300px] hover:translate-y-[-5px] custom-drop-shadow-hover "
+                  >
+                    <Card
+                      id={el.id}
+                      name={el.name}
+                      description={el.description}
+                      communityCategory={el.communityCategory}
+                      userCount={el.userCount}
+                      communityProfileImage={el.communityProfileImage}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div className="flex flex-col justify-center items-center text-[#333333] text-[30px]  h-full w-full">
+                해당하는 커뮤니티가 없습니다.
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -326,7 +349,7 @@ export default function HomePage() {
               <div className="px-[4.57px] py-[5.71px] rounded-2xl border border-neutral-100 justify-center items-center gap-[4.57px] flex" />
               <div className="p-2 justify-center items-center gap-2.5 flex">
                 <div className="text-neutral-100 text-base font-bold font-['Inter']">
-                  윌펫 (반려동물 지식 커뮤니티)
+                  {name} ({info})
                 </div>
               </div>
               <div className="text-neutral-100 text-sm font-normal font-['Inter']">
