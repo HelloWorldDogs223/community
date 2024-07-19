@@ -104,19 +104,19 @@ export default function SuggestPage() {
       intro.length > 0
     ) {
       try {
-        // await axios.post(
-        //   "https://sponsors.duckdns.org/api/v1/communities/proposal",
-        //   {
-        //     communityId: state.uid,
-        //     communityName: state.detailInfo.name,
-        //     customerName: name,
-        //     customerType: profit,
-        //     introduction: intro,
-        //     promotionContent: adText,
-        //     promotionPrice: money,
-        //     promotionBenefits: profitText,
-        //   }
-        // );
+        await axios.post(
+          "https://sponsors.duckdns.org/api/v1/communities/proposal",
+          {
+            communityId: state.uid,
+            communityName: state.detailInfo.name,
+            customerName: name,
+            customerType: profit,
+            introduction: intro,
+            promotionContent: adText,
+            promotionPrice: money,
+            promotionBenefits: profitText,
+          }
+        );
         navigate("/", {
           state: { done: true, detailInfo: state.detailInfo },
         });
