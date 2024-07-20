@@ -141,7 +141,7 @@ export default function DetailPage() {
         <div className="w-[780px] pb-[200px] text-[#333333]">
           {detailInfo.promotionContent}
         </div>
-        <div className="flex  fixed bottom-[0px] bg-white h-[100px] pb-[100px] left-[50%] translate-x-[-40%]">
+        <div className="flex  fixed bottom-[0px] bg-white h-[100px] pb-[100px] left-[50%] translate-x-[-50%] pt-[58px]">
           <div
             onClick={() => navigate("/")}
             className="cursor-pointer w-[382px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[24px]"

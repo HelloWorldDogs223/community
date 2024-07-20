@@ -311,7 +311,7 @@ export default function HomePage() {
                     }
                     key={el.id}
                     style={styleObject}
-                    className="flex items-center justify-center max-w-[300px] hover:translate-y-[-5px] custom-drop-shadow-hover "
+                    className="flex items-center justify-center max-w-[320px] hover:translate-y-[-5px] custom-drop-shadow-hover "
                   >
                     <Card
                       id={el.id}

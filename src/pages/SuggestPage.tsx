@@ -184,7 +184,7 @@ export default function SuggestPage() {
       <div className="flex items-center flex-col pt-[56px] overflow-hidden relative ">
         <div className="h-[150px] w-full  fixed bg-white z-[2] top-[52px] ">
           <div className="w-[780px] h-[70px]  rounded border border-stone-300 border-solid absolute top-[60px] left-[50%] translate-x-[-50%] ">
-            <div className="left-[24px] top-[10px] absolute justify-start items-center gap-1 inline-flex">
+            <div className="left-[24px] top-[13px] absolute justify-start items-center gap-1 inline-flex">
               <div className="text-stone-500 text-sm font-normal font-['Inter']">
                 현재
               </div>
@@ -280,7 +280,7 @@ export default function SuggestPage() {
               className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  mb-[24px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
               placeholder="소속 업체의 이름을 알려 주세요"
             />
-            <hr className="mb-[24px]" />
+
             <div className="mb-[26px]">
               <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
                 담당자 전화번호&nbsp;
@@ -295,8 +295,7 @@ export default function SuggestPage() {
               placeholder="전화번호를 입력해주세요 (숫자만)"
             />
 
-            <hr className="mb-[24px]" />
-            <div className="flex mt-[56px]">
+            <div className="flex mt-[26px] mb-[56px] items-center">
               <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug mr-[1px]">
                 업체 유형&nbsp;
               </span>
@@ -310,7 +309,7 @@ export default function SuggestPage() {
               >
                 <div className="flex justify-center items-center text-center  text-sm font-medium font-['Roboto'] leading-tight tracking-tight">
                   {profit === "영리" && (
-                    <div className="w-[17px] h-[17px] px-1 py-[5px] bg-zinc-800 rounded-[13.57px] border border-neutral-100 justify-center items-center gap-1 inline-flex border-solid mr-[4px]">
+                    <div className="w-[15px] h-[15px] px-1 py-[5px] bg-zinc-800 rounded-[13.57px] border border-neutral-100 justify-center items-center gap-1 inline-flex border-solid mr-[4px]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="80"
@@ -337,7 +336,7 @@ export default function SuggestPage() {
                 onClick={profitClickHandler("비영리")}
               >
                 {profit === "비영리" && (
-                  <div className="w-[17px] h-[17px] px-1 py-[5px] bg-zinc-800 rounded-[13.57px] border border-neutral-100 justify-center items-center gap-1 inline-flex border-solid mr-[4px]">
+                  <div className="w-[15px] h-[15px] px-1 py-[5px] bg-zinc-800 rounded-[13.57px] border border-neutral-100 justify-center items-center gap-1 inline-flex border-solid mr-[4px]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="80"
@@ -361,8 +360,6 @@ export default function SuggestPage() {
               </div>
             </div>
 
-            <hr className="mt-[24px]" />
-
             <div className="mt-[24px] mb-[26px]">
               <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
                 한줄 소개&nbsp;
@@ -373,15 +370,15 @@ export default function SuggestPage() {
             </div>
             <input
               onChange={introTextHandler}
-              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg mb-[56px] py-[18px] pl-[25px] focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
+              className="w-[618px] h-14 relative bg-zinc-100 rounded-lg  py-[18px] pl-[25px] focus:border-gray-600 focus:border-2 placeholder:text-[#cccccc]"
               placeholder="소속 업체를 한줄로 간략히 소개해 주세요 "
             />
+
+            <hr className="mt-[96px] mb-[96px]" />
 
             <div className={` text-xl font-semibold font-['Inter'] leading-7 `}>
               2) 커뮤니티에 홍보할 제품/서비스
             </div>
-
-            <hr className="mb-[24px] mt-[24px]" />
 
             <div className="flex items-center mt-[56px] justify-between">
               <div className="">
@@ -426,9 +423,7 @@ ex) -------"
               </div>
             </div>
 
-            <hr className="mt-[24px]" />
-
-            <div className="flex items-center mt-[24px] mb-[60px]">
+            <div className="flex items-center mt-[24px] ">
               <div className="" ref={targetRef}>
                 <span className="text-[#333333] text-base font-semibold font-['Inter'] leading-snug">
                   제안 단가&nbsp;
@@ -512,11 +507,11 @@ ex) -------"
               </div>
             </div>
 
+            <hr className="mt-[96px] mb-[96px]" />
+
             <div className="text-[#333333] text-xl font-semibold font-['Inter'] leading-7">
               3) 커뮤니티에 제공할 혜택
             </div>
-
-            <hr className="mt-[24px]" />
 
             <div className="flex mt-[24px] items-center justify-between">
               <div className="">
@@ -567,7 +562,7 @@ ex) -------"
               </div>
             </div>
 
-            <div className="flex fixed bottom-[0px] left-[50%] translate-x-[-40%] pt-[58px] pb-[100px] h-[100px] bg-white">
+            <div className="flex fixed bottom-[0px] left-[50%] translate-x-[-50%] pt-[58px] pb-[100px] h-[100px] bg-white">
               <div
                 onClick={() => navigate("/")}
                 className="cursor-pointer w-[382px] h-12 px-6 py-2.5 bg-neutral-100 rounded-xl border border-stone-300 flex-col justify-center items-center gap-2 inline-flex mr-[24px]"
