@@ -65,7 +65,7 @@ export default function TagModal({
     }
 
     const res: any = await axios.get(
-      `https://sponsors.duckdns.org/api/v1/communities?category=${givenTag.map(
+      `https://sponsors2024.duckdns.org/api/v1/communities?category=${givenTag.map(
         (el: string) => {
           return el + ",";
         }

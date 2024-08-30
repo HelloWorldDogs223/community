@@ -43,7 +43,7 @@ export default function DetailPage() {
   useEffect(() => {
     const getAxios = async () => {
       const res = await axios.get(
-        `https://sponsors.duckdns.org/api/v1/communities/${uid}`
+        `https://sponsors2024.duckdns.org/api/v1/communities/${uid}`
       );
       setDetailInfo(res.data);
     };

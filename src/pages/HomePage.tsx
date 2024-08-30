@@ -144,7 +144,7 @@ export default function HomePage() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "https://sponsors.duckdns.org/api/v1/communities"
+          "https://sponsors2024.duckdns.org/api/v1/communities"
         );
         setResult(res.data);
       } catch (e) {
@@ -177,7 +177,7 @@ export default function HomePage() {
       }
 
       const res: any = await axios.get(
-        `https://sponsors.duckdns.org/api/v1/communities?category=${givenTag.map(
+        `https://sponsors2024.duckdns.org/api/v1/communities?category=${givenTag.map(
           (el: string) => {
             return el + ",";
           }

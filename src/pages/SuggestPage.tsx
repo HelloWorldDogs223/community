@@ -105,7 +105,7 @@ export default function SuggestPage() {
     ) {
       try {
         await axios.post(
-          "https://sponsors.duckdns.org/api/v1/communities/proposal",
+          "https://sponsors2024.duckdns.org/api/v1/communities/proposal",
           {
             communityId: state.uid,
             communityName: state.detailInfo.name,
